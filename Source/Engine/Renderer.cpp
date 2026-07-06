@@ -50,4 +50,10 @@ void Renderer::SetDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     SDL_SetRenderDrawColor(m_renderer, r, g, b, a);
 }
 
+void Renderer::Shutdown() {
+	if (m_renderer) SDL_DestroyRenderer(m_renderer);
+	if (m_window) SDL_DestroyWindow(m_window);
+	SDL_Quit();
+}
+
 

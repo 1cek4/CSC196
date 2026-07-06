@@ -16,6 +16,7 @@ public:
     void DrawPoint(float x, float y);
     void DrawRect(float x, float y, float w, float h);
     void Present();
+	void Shutdown();
 
     bool IsValid() const { return m_window != nullptr && m_renderer != nullptr; }
 
