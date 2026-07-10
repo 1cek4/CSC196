@@ -17,6 +17,9 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -26,6 +29,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

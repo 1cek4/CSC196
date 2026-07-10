@@ -152,9 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Vector2.h" />

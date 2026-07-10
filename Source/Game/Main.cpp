@@ -1,46 +1,58 @@
 #include <SDL3/SDL.h>
 #include <iostream>
-#include "../Engine/Renderer.h"  
-#include "../Engine/Random.h"  
+#include <vector>
+#include "../Engine/Renderer.h"
+#include "../Engine/Random.h"
+#include "../Engine/Input.h"
+#include "../Engine/Vector2.h"
 
 using namespace nu;
 
 int main(int argc, char* argv[]) {
-        
-        Renderer renderer("Game Engine", 1920, 1080);
 
-        if (!renderer.IsValid()) return 1;
+    Renderer renderer("Game Engine", 1920, 1080);
+    Input input;
 
-        SDL_Event e;
-        bool quit = false;
+    if (!renderer.IsValid()) return 1;
 
-        while (!quit) {
-            while (SDL_PollEvent(&e)) {
-                if (e.type == SDL_EVENT_QUIT) quit = true;
-            }
+    SDL_Event e;
+    bool quit = false;
 
-            renderer.SetDrawColor(0, 0, 0, 255);
-            renderer.Clear();
+    std::vector<Vector2> points;
 
-            for (int i = 0; i < 10; ++i) {
-                renderer.SetDrawColor(nu::RandomInt(256), nu::RandomInt(256), nu::RandomInt(256), 255);
-                renderer.DrawLine(nu::RandomInt(1920), nu::RandomInt(1080), nu::RandomInt(1920), nu::RandomInt(1080));
-            }
-
-            for (int i = 0; i < 20; ++i) {
-                renderer.SetDrawColor(nu::RandomInt(256), nu::RandomInt(256), nu::RandomInt(256), 255);
-                renderer.DrawPoint(nu::RandomInt(1920), nu::RandomInt(1080));
-            }
-
-            for (int i = 0; i < 5; ++i) {
-                renderer.SetDrawColor(nu::RandomInt(256), nu::RandomInt(256), nu::RandomInt(256), 255);
-                renderer.DrawRect(std::rand() % 1200, nu::RandomInt(1080), 50, 50);
-            }
-
-            renderer.Present();
+    while (!quit) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_EVENT_QUIT) quit = true;
         }
 
-		renderer.Shutdown();
+        input.Update();
 
-        return 0;
+        if (input.GetButtonPressed(Input::Left)) std::cout << "button pressed\n";
+        if (input.GetButtonDown(Input::Left)) std::cout << "button down\n";
+
+        if (input.GetButtonDown(Input::Left)) {
+            Vector2 position = input.GetMousePosition();
+
+            if (points.empty()) {
+                points.push_back(position);
+            }
+            else if ((position - points.back()).Length() > 10.0f) {
+                points.push_back(position);
+            }
+        }
+
+        renderer.SetDrawColor(0, 0, 0, 255);
+        renderer.Clear();
+
+        for (int i = 0; i < (int)points.size() - 1; i++) {
+            renderer.SetDrawColor(nu::RandomInt(256), nu::RandomInt(256), nu::RandomInt(256), 255);
+            renderer.DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+        }
+
+        renderer.Present();
     }
+
+    renderer.Shutdown();
+
+    return 0;
+}
