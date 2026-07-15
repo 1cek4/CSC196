@@ -34,5 +34,11 @@
     <ClInclude Include="Input.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
