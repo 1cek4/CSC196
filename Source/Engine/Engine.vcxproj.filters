@@ -20,6 +20,15 @@
     <ClCompile Include="Input.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -38,6 +47,30 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

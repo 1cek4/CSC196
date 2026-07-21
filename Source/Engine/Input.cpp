@@ -1,15 +1,26 @@
+#include "pch.h"
 #include "Input.h"
+
+#include <SDL3/SDL.h>
 
 namespace nu {
 
-    Input::Input() {
-        const bool* state = SDL_GetKeyboardState(&m_numKeys);
-        m_curKeyStates.assign(state, state + m_numKeys);
+    bool Input::Initialize()
+    {
+
+        int numkeys;
+        const bool* keyState = SDL_GetKeyboardState(&numkeys);
+        m_curKeyStates.resize(numkeys);
+
+        std::copy(keyState, keyState + numkeys, m_curKeyStates.begin());
         m_prevKeyStates = m_curKeyStates;
+
+        return false;
     }
 
-    uint32_t Input::GetButtonBit(MouseButton button) const {
-        return SDL_BUTTON_MASK((uint32_t)button);
+
+    void Input::Shutdown()
+    {
     }
 
     void Input::Update() {

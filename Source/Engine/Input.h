@@ -15,7 +15,8 @@ namespace nu {
             Right = 3
         };
 
-        Input();
+        bool Initialize();
+        void Shutdown();
 
         void Update();
 

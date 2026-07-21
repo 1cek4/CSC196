@@ -1,58 +1,75 @@
-#include <SDL3/SDL.h>
+
+#include "Engine.h"
+#include "Player.h"
+
 #include <iostream>
 #include <vector>
-#include "../Engine/Renderer.h"
-#include "../Engine/Random.h"
-#include "../Engine/Input.h"
-#include "../Engine/Vector2.h"
+#include "Renderer.h"
 
 using namespace nu;
 
 int main(int argc, char* argv[]) {
 
-    Renderer renderer("Game Engine", 1920, 1080);
-    Input input;
+    //Init
+    engine.Initialize();
+	Renderer& renderer = engine.GetRenderer();
 
-    if (!renderer.IsValid()) return 1;
+    std::vector<Vector2> modelPoints{ Vector2{ -3.0f, 3.0f }, Vector2{ 3.0f, 3.0f }, Vector2{ 0.0f, -3.0f }, Vector2{ -3.0f, 3.0f } };
 
-    SDL_Event e;
-    bool quit = false;
+
+    std::vector<Vector2> tailPoints{
+        Vector2{ -2.0f,  2.0f },
+        Vector2{ -6.0f,  1.0f },  
+        Vector2{ -3.0f,  0.0f },  
+        Vector2{ -6.0f, -1.0f },  
+        Vector2{ -2.0f, -2.0f }  
+    };
+    Mesh tailMesh{ tailPoints, Color{ 0.8f, 0.1f, 0.1f } }; 
+
+    std::vector<Vector2> bodyPoints{
+        Vector2{ -2.0f,  2.0f },
+        Vector2{  2.0f,  2.0f },
+        Vector2{  2.0f, -2.0f },
+        Vector2{ -2.0f, -2.0f },
+        Vector2{ -2.0f,  2.0f }
+    };
+    Mesh bodyMesh{ bodyPoints, Color{ 0.0f, 0.0f, 1.0f } }; 
+
+    std::vector<Vector2> nosePoints{
+        Vector2{ 2.0f,  2.0f },
+        Vector2{ 6.0f,  0.0f },
+        Vector2{ 2.0f, -2.0f },
+        Vector2{ 2.0f,  2.0f }
+    };
+    Mesh noseMesh{ nosePoints, Color{ 1.0f, 0.85f, 0.0f } };
+
+    Model model{ std::vector<Mesh>{ tailMesh, bodyMesh, noseMesh } };
+
+    Actor player{ Transform{ Vector2 { 640.0f, 512.0f }, 0.0f, 50.0f }, model };
 
     std::vector<Vector2> points;
+    std::vector<bool> startsNewShape;
+
+    bool quit = false;
+
 
     while (!quit) {
+        SDL_Event e;
+
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_EVENT_QUIT) quit = true;
         }
 
-        input.Update();
+        engine.Update();
 
-        if (input.GetButtonPressed(Input::Left)) std::cout << "button pressed\n";
-        if (input.GetButtonDown(Input::Left)) std::cout << "button down\n";
+        player.Draw(renderer);
 
-        if (input.GetButtonDown(Input::Left)) {
-            Vector2 position = input.GetMousePosition();
-
-            if (points.empty()) {
-                points.push_back(position);
-            }
-            else if ((position - points.back()).Length() > 10.0f) {
-                points.push_back(position);
-            }
-        }
-
-        renderer.SetDrawColor(0, 0, 0, 255);
-        renderer.Clear();
-
-        for (int i = 0; i < (int)points.size() - 1; i++) {
-            renderer.SetDrawColor(nu::RandomInt(256), nu::RandomInt(256), nu::RandomInt(256), 255);
-            renderer.DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
-        }
 
         renderer.Present();
     }
-
-    renderer.Shutdown();
+    engine.GetInput().Shutdown();
+    engine.GetRenderer().Shutdown();
+   
 
     return 0;
 }
