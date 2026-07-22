@@ -29,6 +29,9 @@
     <ClCompile Include="GameTime.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -71,6 +74,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="GameTime.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
