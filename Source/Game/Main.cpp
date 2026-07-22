@@ -6,9 +6,18 @@
 #include <vector>
 #include "Renderer.h"
 
+#include <fmod.hpp>
+
 using namespace nu;
 
 int main(int argc, char* argv[]) {
+
+    // create audio system
+    FMOD::System* audio;
+    FMOD::System_Create(&audio);
+
+    void* extradriverdata = nullptr;
+    audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
 
     //Init
     engine.Initialize();
@@ -52,8 +61,37 @@ int main(int argc, char* argv[]) {
 
     bool quit = false;
 
+    std::vector<FMOD::Sound*> sounds;
 
+    FMOD::Sound* sound = nullptr;
+    audio->createSound("alert.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("duck-toy.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("error.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("hee-hee.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("mario.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("oof.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("scream.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    audio->createSound("whistle.mp3", FMOD_DEFAULT, 0, &sound);
+    sounds.push_back(sound);
+
+    // main
     while (!quit) {
+
+        audio->update();
         SDL_Event e;
 
         while (SDL_PollEvent(&e)) {
@@ -63,6 +101,38 @@ int main(int argc, char* argv[]) {
         engine.Update();
 
         player.Draw(renderer);
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_1))
+        {
+            audio->playSound(sounds[0], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_2))
+        {
+            audio->playSound(sounds[1], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_3))
+        {
+            audio->playSound(sounds[2], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_4))
+        {
+            audio->playSound(sounds[3], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_5))
+        {
+            audio->playSound(sounds[4], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_6))
+        {
+            audio->playSound(sounds[5], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_7))
+        {
+            audio->playSound(sounds[6], nullptr, false, nullptr);
+        }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_8))
+        {
+            audio->playSound(sounds[7], nullptr, false, nullptr);
+        }
 
 
         renderer.Present();
