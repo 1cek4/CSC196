@@ -3,6 +3,7 @@
 #define RENDERER_H
 
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 
 namespace nu {
@@ -33,6 +34,9 @@ namespace nu {
         bool IsValid() const { return m_window != nullptr && m_renderer != nullptr; }
 
     private:
+
+        friend class Text;
+
         SDL_Window* m_window = nullptr;
         SDL_Renderer* m_renderer = nullptr;
 

@@ -8,6 +8,8 @@
 #include "File.h"
 
 #include <fmod.hpp>
+#include <Font.h>
+#include <Text.h>
 
 using namespace nu;
 
@@ -152,8 +154,16 @@ int main(int argc, char* argv[]) {
     audio->createSound("whistle.mp3", FMOD_DEFAULT, 0, &sound);
     sounds.push_back(sound);
 
+    Font* font = new Font();
+    font->Load("AlphaFlowers.ttf", 100);
+
+    Text* text = new Text(font);
+    text->Create(engine.GetRenderer(), "Hello World", Vector3{ 1, 1, 1});
+
     // main
     while (!quit) {
+
+        text->Draw(engine.GetRenderer(), 100.0f, 100.0f);
 
         audio->update();
         audioTest.Update();

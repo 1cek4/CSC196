@@ -47,6 +47,12 @@
     <ClCompile Include="Audio.cpp">
       <Filter>Include</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -110,6 +116,12 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
