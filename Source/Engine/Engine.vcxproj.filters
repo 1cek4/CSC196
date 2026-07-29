@@ -32,6 +32,18 @@
     <ClCompile Include="File.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -77,6 +89,21 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="File.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSystem.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
