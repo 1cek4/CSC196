@@ -7,15 +7,18 @@ namespace nu {
 
     bool Input::Initialize()
     {
-
         int numkeys;
         const bool* keyState = SDL_GetKeyboardState(&numkeys);
-        m_curKeyStates.resize(numkeys);
 
+        if (keyState == nullptr) {
+            return false;
+        }
+
+        m_curKeyStates.resize(numkeys);
         std::copy(keyState, keyState + numkeys, m_curKeyStates.begin());
         m_prevKeyStates = m_curKeyStates;
 
-        return false;
+        return true;
     }
 
 

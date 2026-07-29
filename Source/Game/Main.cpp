@@ -1,6 +1,6 @@
-
 #include "Engine.h"
 #include "Player.h"
+#include "Audio.h"
 
 #include <iostream>
 #include <vector>
@@ -70,21 +70,34 @@ int main(int argc, char* argv[]) {
     void* extradriverdata = nullptr;
     audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
 
+    // heres the audio class test 
+    nu::Audio audioTest;
+    if (!audioTest.Initialize())
+    {
+        std::cerr << "Audio class failed to initialize.\n";
+    }
+    audioTest.AddSound("sound", "scream.mp3");
+
     //Init
+
     engine.Initialize();
-	Renderer& renderer = engine.GetRenderer();
+
+
+
+
+    Renderer& renderer = engine.GetRenderer();
 
     std::vector<Vector2> modelPoints{ Vector2{ -3.0f, 3.0f }, Vector2{ 3.0f, 3.0f }, Vector2{ 0.0f, -3.0f }, Vector2{ -3.0f, 3.0f } };
 
 
     std::vector<Vector2> tailPoints{
         Vector2{ -2.0f,  2.0f },
-        Vector2{ -6.0f,  1.0f },  
-        Vector2{ -3.0f,  0.0f },  
-        Vector2{ -6.0f, -1.0f },  
-        Vector2{ -2.0f, -2.0f }  
+        Vector2{ -6.0f,  1.0f },
+        Vector2{ -3.0f,  0.0f },
+        Vector2{ -6.0f, -1.0f },
+        Vector2{ -2.0f, -2.0f }
     };
-    Mesh tailMesh{ tailPoints, Color{ 0.8f, 0.1f, 0.1f } }; 
+    Mesh tailMesh{ tailPoints, Color{ 0.8f, 0.1f, 0.1f } };
 
     std::vector<Vector2> bodyPoints{
         Vector2{ -2.0f,  2.0f },
@@ -93,7 +106,7 @@ int main(int argc, char* argv[]) {
         Vector2{ -2.0f, -2.0f },
         Vector2{ -2.0f,  2.0f }
     };
-    Mesh bodyMesh{ bodyPoints, Color{ 0.0f, 0.0f, 1.0f } }; 
+    Mesh bodyMesh{ bodyPoints, Color{ 0.0f, 0.0f, 1.0f } };
 
     std::vector<Vector2> nosePoints{
         Vector2{ 2.0f,  2.0f },
@@ -143,6 +156,8 @@ int main(int argc, char* argv[]) {
     while (!quit) {
 
         audio->update();
+        audioTest.Update();
+
         SDL_Event e;
 
         while (SDL_PollEvent(&e)) {
@@ -184,18 +199,25 @@ int main(int argc, char* argv[]) {
         {
             audio->playSound(sounds[7], nullptr, false, nullptr);
         }
+        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_9))
+        {
+            audioTest.PlaySound("sound");
+        }
 
-        
+
 
 
         renderer.Present();
     }
+
+    audioTest.Shutdown();
+
     engine.GetInput().Shutdown();
     engine.GetRenderer().Shutdown();
 
 
 
-   
+
 
     return 0;
 }
