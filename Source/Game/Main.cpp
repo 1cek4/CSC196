@@ -160,14 +160,9 @@ int main(int argc, char* argv[]) {
     Text* text = new Text(font);
     text->Create(engine.GetRenderer(), "Hello World", Vector3{ 1, 1, 1});
 
+
     // main
     while (!quit) {
-
-        text->Draw(engine.GetRenderer(), 100.0f, 100.0f);
-
-        audio->update();
-        audioTest.Update();
-
         SDL_Event e;
 
         while (SDL_PollEvent(&e)) {
@@ -176,46 +171,26 @@ int main(int argc, char* argv[]) {
 
         engine.Update();
 
+        if (engine.GetInput().GetButtonPressed(Input::Left))
+        {
+            Vector2 mousePos = engine.GetInput().GetMousePosition();
+
+            for (int i = 0; i < 100; i++)
+            {
+                nu::Particle particle;
+                particle.position = mousePos;
+                particle.color = { 1.0f, 1.0f, 1.0f };
+                particle.lifespan = nu::RandomFloat(0.5f, 2.0f);
+                particle.velocity = { nu::RandomFloat(-600.0f, 600.0f), nu::RandomFloat(-600.0f, 600.0f) };
+
+                engine.GetPS().AddParticle(particle);
+            }
+        }
+        renderer.SetColor(0, 0, 0, 255);
+        renderer.Clear();
+
         player.Draw(renderer);
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_1))
-        {
-            audio->playSound(sounds[0], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_2))
-        {
-            audio->playSound(sounds[1], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_3))
-        {
-            audio->playSound(sounds[2], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_4))
-        {
-            audio->playSound(sounds[3], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_5))
-        {
-            audio->playSound(sounds[4], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_6))
-        {
-            audio->playSound(sounds[5], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_7))
-        {
-            audio->playSound(sounds[6], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_8))
-        {
-            audio->playSound(sounds[7], nullptr, false, nullptr);
-        }
-        if (engine.GetInput().GetKeyPressed(SDL_SCANCODE_9))
-        {
-            audioTest.PlaySound("sound");
-        }
-
-
-
+        engine.GetPS().Draw(renderer);
 
         renderer.Present();
     }

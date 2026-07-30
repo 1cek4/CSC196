@@ -43,4 +43,9 @@ namespace nu {
         return (size_t)key < m_prevKeyStates.size() && m_prevKeyStates[key] != 0;
     }
 
+    uint32_t Input::GetButtonBit(MouseButton button) const {
+        return (1u << (button - 1));
+    }
+
+
 }

@@ -1,41 +1,35 @@
 #pragma once
 
-#include "Particle.h"
+#include "Vector2.h"
+#include "Vector3.h"
 
 #include <cstddef>
 #include <vector>
 
 namespace nu {
-	class Renderer;
+	struct Particle {
+		bool active{ false };
+		float lifespan{ 1 };
+
+		Vector2 position{ 0, 0 };
+		Vector2 velocity{ 0, 0 };
+		Color color{ 0, 0, 0 };
+	};
 
 	class ParticleSystem {
 	public:
 		ParticleSystem() = default;
 
+		bool Initialize(size_t poolSize = 1000);
+		void Shutdown();
+
 		void Update(float dt);
-		void Draw(const Renderer& renderer) const;
+		void Draw(const class Renderer& renderer);
 
-		void Emit(
-			const Vector2& position,
-			const Vector2& velocity,
-			const Color& color,
-			float lifespan
-		);
+		void AddParticle(const Particle& particle);
 
-		void EmitBurst(
-			const Vector2& position,
-			int count,
-			float minSpeed,
-			float maxSpeed,
-			const Color& color,
-			float lifespan
-		);
-
-		void Clear();
-
-		std::size_t GetParticleCount() const {
-			return m_particles.size();
-		}
+	private:
+		Particle* GetFreeParticle();
 
 	private:
 		std::vector<Particle> m_particles;

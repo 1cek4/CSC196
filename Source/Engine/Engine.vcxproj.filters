@@ -41,9 +41,6 @@
     <ClCompile Include="AudioSystem.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Include</Filter>
-    </ClCompile>
     <ClCompile Include="Audio.cpp">
       <Filter>Include</Filter>
     </ClCompile>
@@ -51,6 +48,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
